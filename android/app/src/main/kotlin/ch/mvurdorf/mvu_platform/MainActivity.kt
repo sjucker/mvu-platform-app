@@ -1,4 +1,4 @@
-package ch.mvurdorf.mvu_platform
+package ch.mvurdorf.platform
 
 import io.flutter.embedding.android.FlutterActivity
 
