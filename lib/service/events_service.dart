@@ -9,7 +9,7 @@ Future<List<Absenz>> getAbsenzen() async {
   final http.Response response = await http.get(Uri.parse('$baseUrl/api/secured/event'), headers: await getHeaders());
 
   if (response.statusCode == HttpStatus.ok) {
-    return json.decode(utf8.decode(response.body.codeUnits)).map<Absenz>((dynamic data) => Absenz.fromJson(data)).toList();
+    return json.decode(utf8.decode(response.bodyBytes)).map<Absenz>((dynamic data) => Absenz.fromJson(data)).toList();
   } else {
     throw Exception('failed to load absenzen, status code: ${response.statusCode}');
   }
