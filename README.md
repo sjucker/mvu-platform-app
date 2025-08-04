@@ -5,7 +5,7 @@
 ### Android
 
 * `flutter build appbundle`
-* Upload `build/app/outputs/bundle/release/app-release.aab` to Play Console
+* Upload [app-release.aab](build/app/outputs/bundle/release/app-release.aab) to Play Console
 
 ## Firebase
 
@@ -16,10 +16,10 @@
 
 * Add `key.properties` to `/android`:
     * ```
-    storePassword=<PASSWORD>
-    keyPassword=<PASSWORD>
-    keyAlias=key
-    storeFile=../../key.jks
+  storePassword=<PASSWORD>
+  keyPassword=<PASSWORD>
+  keyAlias=key
+  storeFile=../../key.jks
     ```
     * Make sure it points to the correct `key.jks` (this file must not be under version control!)
 
