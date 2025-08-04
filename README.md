@@ -7,6 +7,11 @@
 * `flutter build appbundle`
 * Upload [app-release.aab](build/app/outputs/bundle/release/app-release.aab) to Play Console
 
+### iOS
+
+* `flutter build ipa`
+* Upload [mvu_platform.ipa](build/ios/ipa/mvu_platform.ipa) using Apple Transporter macOS app
+
 ## Firebase
 
 * `firebase login`
