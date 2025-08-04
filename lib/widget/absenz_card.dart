@@ -3,7 +3,7 @@ import 'package:mvu_platform/dto/absenz.dart';
 import 'package:mvu_platform/service/events_service.dart';
 
 class AbsenzCard extends StatefulWidget {
-  const AbsenzCard(this._absenz);
+  const AbsenzCard(this._absenz, {super.key});
 
   final Absenz _absenz;
 
@@ -17,7 +17,7 @@ class _AbsenzCardState extends State<AbsenzCard> {
   _AbsenzCardState(this.absenz);
 
   Absenz absenz;
-  late TextEditingController _commentController = TextEditingController(text: absenz.remark);
+  late final TextEditingController _commentController = TextEditingController(text: absenz.remark);
   late FocusNode _focusNode;
 
   @override
@@ -49,85 +49,83 @@ class _AbsenzCardState extends State<AbsenzCard> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Row(children: <Widget>[Text(absenz.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18))]),
-          Row(
-            children: <Widget>[
-              Flexible(child: Text(absenz.subtitle)),
-              if (absenz.interna.isNotEmpty) ...[Tooltip(message: absenz.interna, child: Icon(Icons.info_outline), padding: EdgeInsets.all(12))],
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(12),
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.horizontal(start: Radius.circular(8))),
-                  foregroundColor: _buttonColor(context, AbsenzState.POSITIVE, Colors.green[Theme.of(context).brightness == Brightness.dark ? 900 : 500]),
-                ),
-                onPressed: () {
-                  setState(() {
-                    absenz.status = AbsenzState.POSITIVE;
-                  });
-                  update(context);
+    return Column(
+      children: <Widget>[
+        Row(children: <Widget>[Text(absenz.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18))]),
+        Row(
+          children: <Widget>[
+            Flexible(child: Text(absenz.subtitle)),
+            if (absenz.interna.isNotEmpty) ...[Tooltip(message: absenz.interna, padding: EdgeInsets.all(12), child: Icon(Icons.info_outline))],
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(12),
+                shape: const RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.horizontal(start: Radius.circular(8))),
+                backgroundColor: _buttonColor(context, AbsenzState.POSITIVE, Colors.green[Theme.of(context).brightness == Brightness.dark ? 900 : 500]),
+              ),
+              onPressed: () {
+                setState(() {
+                  absenz.status = AbsenzState.POSITIVE;
+                });
+                update(context);
+              },
+              child: Text('anwesend', style: TextStyle(color: _buttonTextColor(AbsenzState.POSITIVE))),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(12),
+                shape: const RoundedRectangleBorder(),
+                backgroundColor: _buttonColor(context, AbsenzState.NEGATIVE, Colors.red[Theme.of(context).brightness == Brightness.dark ? 900 : 500]),
+              ),
+              onPressed: () {
+                setState(() {
+                  absenz.status = AbsenzState.NEGATIVE;
+                });
+                update(context);
+              },
+              child: Text('abwesend', style: TextStyle(color: _buttonTextColor(AbsenzState.NEGATIVE))),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.all(12),
+                shape: const RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.horizontal(end: Radius.circular(8))),
+                backgroundColor: _buttonColor(context, AbsenzState.INACTIVE, Colors.grey),
+              ),
+              onPressed: () {
+                setState(() {
+                  absenz.status = AbsenzState.INACTIVE;
+                });
+                update(context);
+              },
+              child: Text('inaktiv', style: TextStyle(color: _buttonTextColor(AbsenzState.INACTIVE))),
+            ),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Flexible(
+              child: TextField(
+                onSubmitted: (String value) {
+                  updateComment();
                 },
-                child: Text('anwesend', style: TextStyle(color: _buttonTextColor(AbsenzState.POSITIVE))),
+                decoration: const InputDecoration(labelText: 'Bemerkung'),
+                controller: _commentController,
+                focusNode: _focusNode,
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(12),
-                  shape: const RoundedRectangleBorder(),
-                  foregroundColor: _buttonColor(context, AbsenzState.NEGATIVE, Colors.red[Theme.of(context).brightness == Brightness.dark ? 900 : 500]),
-                ),
-                onPressed: () {
-                  setState(() {
-                    absenz.status = AbsenzState.NEGATIVE;
-                  });
-                  update(context);
-                },
-                child: Text('abwesend', style: TextStyle(color: _buttonTextColor(AbsenzState.NEGATIVE))),
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(12),
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.horizontal(end: Radius.circular(8))),
-                  foregroundColor: _buttonColor(context, AbsenzState.INACTIVE, Colors.grey),
-                ),
-                onPressed: () {
-                  setState(() {
-                    absenz.status = AbsenzState.INACTIVE;
-                  });
-                  update(context);
-                },
-                child: Text('inaktiv', style: TextStyle(color: _buttonTextColor(AbsenzState.INACTIVE))),
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              Flexible(
-                child: TextField(
-                  onSubmitted: (String value) {
-                    updateComment();
-                  },
-                  decoration: const InputDecoration(labelText: 'Bemerkung'),
-                  controller: _commentController,
-                  focusNode: _focusNode,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 
   void update(BuildContext context) {
     updateAbsenz(absenz)
-        .then((_) => showSnackbar(context, 'gespeichert', Colors.green[Theme.of(context).brightness == Brightness.dark ? 900 : 500]))
-        .catchError((Object e) => showSnackbar(context, 'Speichern fehlgeschlagen: $e', Colors.red));
+        .then((_) => {if (context.mounted) showSnackbar(context, 'gespeichert', Colors.green[Theme.of(context).brightness == Brightness.dark ? 900 : 500])})
+        .catchError((Object e) => {if (context.mounted) showSnackbar(context, 'Speichern fehlgeschlagen: $e', Colors.red)});
   }
 
   void showSnackbar(BuildContext context, String text, Color? backgroundColor) {

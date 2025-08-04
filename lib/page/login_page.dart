@@ -12,7 +12,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('MVU Login')),
+      appBar: AppBar(title: const Text('Login')),
       body: Builder(
         builder: (BuildContext context) {
           return Container(
@@ -39,8 +39,12 @@ class LoginPage extends StatelessWidget {
                     controller: _passwordController,
                     autofillHints: [AutofillHints.password],
                   ),
-                  ElevatedButton(
-                    child: const Text('Login'),
+                  OutlinedButton(
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
                     onPressed: () async {
                       try {
                         await _firebaseAuth.signInWithEmailAndPassword(
@@ -48,16 +52,19 @@ class LoginPage extends StatelessWidget {
                           password: _passwordController.text,
                         );
                       } on FirebaseAuthException catch (e) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: Colors.redAccent,
-                            content: Text(
-                              'Login fehlgeschlagen: ${buildErrorMessage(e)}',
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: Colors.redAccent,
+                              content: Text(
+                                'Login fehlgeschlagen: ${buildErrorMessage(e)}',
+                              ),
                             ),
-                          ),
-                        );
+                          );
+                        }
                       }
                     },
+                    child: const Text('Login'),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 40),
@@ -102,6 +109,9 @@ class LoginPage extends StatelessWidget {
       case 'wrong-password':
         {
           return 'Falsches Passwort';
+        }
+        case 'channel-error': {
+          return 'Allgemeiner Fehler';
         }
       default:
         {

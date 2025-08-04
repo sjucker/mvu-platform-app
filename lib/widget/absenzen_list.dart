@@ -4,6 +4,8 @@ import 'package:mvu_platform/service/events_service.dart';
 import 'package:mvu_platform/widget/absenz_card.dart';
 
 class AbsenzenList extends StatefulWidget {
+  const AbsenzenList({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _AbsenzenListState();
