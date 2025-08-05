@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mvu_platform/page/change_password_page.dart';
 import 'package:mvu_platform/service/dark_theme.dart';
 import 'package:mvu_platform/service/preference_service.dart';
 import 'package:mvu_platform/widget/version_number.dart';
@@ -47,6 +48,17 @@ class _MvuNavigationDrawerState extends State<MvuNavigationDrawer> {
               });
               themeNotifier.switchTheme();
               setDarkTheme(value);
+            },
+          ),
+          ListTile( // Add this ListTile for changing password
+            leading: const Icon(Icons.lock_outline),
+            title: const Text('Passwort ändern'),
+            onTap: () {
+              Navigator.pop(context); // Close the drawer
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ChangePasswordPage()),
+              );
             },
           ),
           ListTile(
