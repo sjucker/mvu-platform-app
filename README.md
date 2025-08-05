@@ -12,9 +12,17 @@
 * `flutter build ipa`
 * Upload [mvu_platform.ipa](build/ios/ipa/mvu_platform.ipa) using Apple Transporter macOS app
 
+#### Troubleshooting
+* `flutter clean`
+* `flutter pub get`
+* `cd ios`
+* `pod install`
+
+
 ## Firebase
 
 * `firebase login`
+* `dart pub global activate flutterfire_cli`
 
 * `$HOME/.pub-cache/bin/flutterfire configure --project=mvu-platform` (macOS)
 * `& $env:userprofile\AppData\Local\Pub\Cache\bin\flutterfire.bat configure --project=mvu-platform` (Windows)
