@@ -60,6 +60,7 @@ class MvuApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Musikverein Harmonie Urdorf',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData.light(),
       darkTheme: ThemeData(brightness: Brightness.dark, primaryColor: Colors.lightBlue[800]),
       themeMode: themeNotifier.getTheme(),
