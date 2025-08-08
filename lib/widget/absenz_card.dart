@@ -52,12 +52,18 @@ class _AbsenzCardState extends State<AbsenzCard> {
     return Column(
       children: <Widget>[
         Row(children: <Widget>[Text(absenz.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18))]),
-        Row(
-          children: <Widget>[
-            Flexible(child: Text(absenz.subtitle)),
-            if (absenz.interna.isNotEmpty) ...[Tooltip(message: absenz.interna, padding: EdgeInsets.all(12), child: Icon(Icons.info_outline))],
-          ],
-        ),
+        Row(children: <Widget>[Text(absenz.subtitle)]),
+        if (absenz.interna.isNotEmpty) ...[
+          ExpansionTile(
+            tilePadding: EdgeInsetsGeometry.zero,
+            childrenPadding: EdgeInsetsGeometry.zero,
+            leading: Icon(Icons.info_outline),
+            title: Text("Details"),
+            dense: true,
+            children: [ListTile(title: Text(absenz.interna))],
+
+          ),
+        ],
         Row(
           children: <Widget>[
             ElevatedButton(

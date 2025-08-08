@@ -13,11 +13,11 @@
 * Upload [mvu_platform.ipa](build/ios/ipa/mvu_platform.ipa) using Apple Transporter macOS app
 
 #### Troubleshooting
+
 * `flutter clean`
 * `flutter pub get`
 * `cd ios`
 * `pod install`
-
 
 ## Firebase
 
