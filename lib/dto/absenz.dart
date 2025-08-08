@@ -1,7 +1,7 @@
 enum AbsenzState { POSITIVE, NEGATIVE, INACTIVE, UNKNOWN }
 
 class Absenz {
-  Absenz(this.loginId, this.eventId, this.title, this.subtitle, this.interna, this.status, this.remark);
+  Absenz(this.loginId, this.eventId, this.title, this.subtitle, this.interna, this.status, this.remark, this.simpleTitle, this.location, this.from, this.to);
 
   factory Absenz.fromJson(Map<String, dynamic> json) {
     return Absenz(
@@ -12,6 +12,10 @@ class Absenz {
       json['interna'],
       AbsenzState.values.firstWhere((AbsenzState e) => e.toString() == 'AbsenzState.' + json['status']),
       json['remark'],
+      json['simpleTitle'],
+      json['location'],
+      DateTime.parse(json['from']),
+      DateTime.parse(json['to']),
     );
   }
 
@@ -22,6 +26,10 @@ class Absenz {
   final String interna;
   AbsenzState status;
   String? remark;
+  String simpleTitle;
+  String location;
+  DateTime from;
+  DateTime to;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
     'loginId': loginId,

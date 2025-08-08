@@ -1,3 +1,4 @@
+import 'package:add_2_calendar_new/add_2_calendar_new.dart';
 import 'package:flutter/material.dart';
 import 'package:mvu_platform/dto/absenz.dart';
 import 'package:mvu_platform/service/events_service.dart';
@@ -51,7 +52,18 @@ class _AbsenzCardState extends State<AbsenzCard> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Row(children: <Widget>[Text(absenz.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18))]),
+        Row(children: <Widget>[
+          Expanded(child: Text(absenz.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18))),
+          IconButton(onPressed: () {
+            final Event event = Event(
+              title: absenz.simpleTitle,
+              location: absenz.location,
+              startDate: absenz.from,
+              endDate: absenz.to,
+            );
+            Add2Calendar.addEvent2Cal(event);
+          }, icon: Icon(Icons.calendar_month))
+        ]),
         Row(children: <Widget>[Text(absenz.subtitle)]),
         if (absenz.interna.isNotEmpty) ...[
           ExpansionTile(
