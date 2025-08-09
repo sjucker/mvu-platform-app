@@ -19,13 +19,16 @@ class LoginPage extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: AutofillGroup(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   TextField(
+                    decoration: InputDecoration(labelText: 'Email'),
                     keyboardType: TextInputType.emailAddress,
                     controller: _emailController,
                     autofillHints: [AutofillHints.username, AutofillHints.email],
                   ),
                   TextField(
+                    decoration: InputDecoration(labelText: 'Passwort'),
                     obscureText: true,
                     keyboardType: TextInputType.text,
                     controller: _passwordController,

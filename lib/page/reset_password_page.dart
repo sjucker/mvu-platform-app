@@ -18,9 +18,10 @@ class ResetPasswordPage extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: AutofillGroup(
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   TextField(
-                    decoration: InputDecoration(labelText: 'Email', icon: Icon(Icons.email)),
+                    decoration: InputDecoration(labelText: 'Email'),
                     keyboardType: TextInputType.emailAddress,
                     autofillHints: [AutofillHints.email],
                     controller: _emailController,
