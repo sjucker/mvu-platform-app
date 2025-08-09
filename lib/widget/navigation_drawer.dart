@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:mvu_platform/constants.dart';
 import 'package:mvu_platform/page/change_password_page.dart';
 import 'package:mvu_platform/service/dark_theme.dart';
 import 'package:mvu_platform/service/preference_service.dart';
@@ -37,7 +38,10 @@ class _MvuNavigationDrawerState extends State<MvuNavigationDrawer> {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          const DrawerHeader(decoration: BoxDecoration(color: Colors.blue), child: Text('Musikverein Harmonie Urdorf', style: TextStyle(color: Colors.white, fontSize: 24))),
+          const DrawerHeader(
+            decoration: BoxDecoration(color: mvuRed),
+            child: Text('Musikverein Harmonie Urdorf', style: TextStyle(color: Colors.white, fontSize: 24)),
+          ),
           SwitchListTile(
             title: Text('Dark Theme'),
             secondary: _darkTheme ? const Icon(Icons.lightbulb_outlined) : const Icon(Icons.lightbulb),
@@ -50,15 +54,13 @@ class _MvuNavigationDrawerState extends State<MvuNavigationDrawer> {
               setDarkTheme(value);
             },
           ),
-          ListTile( // Add this ListTile for changing password
+          ListTile(
+            // Add this ListTile for changing password
             leading: const Icon(Icons.lock_outline),
             title: const Text('Passwort ändern'),
             onTap: () {
               Navigator.pop(context); // Close the drawer
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ChangePasswordPage()),
-              );
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangePasswordPage()));
             },
           ),
           ListTile(

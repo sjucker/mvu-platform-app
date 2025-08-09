@@ -6,6 +6,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mvu_platform/constants.dart';
 import 'package:mvu_platform/firebase_options.dart';
 import 'package:mvu_platform/page/absenzen_page.dart';
 import 'package:mvu_platform/page/login_page.dart';
@@ -61,8 +62,8 @@ class MvuApp extends StatelessWidget {
     return MaterialApp(
       title: 'Musikverein Harmonie Urdorf',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
-      darkTheme: ThemeData(brightness: Brightness.dark, primaryColor: Colors.lightBlue[800]),
+      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: mvuRed, brightness: Brightness.light)),
+      darkTheme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: mvuRed, brightness: Brightness.dark)),
       themeMode: themeNotifier.getTheme(),
       routes: <String, WidgetBuilder>{'/reset-password': (BuildContext context) => ResetPasswordPage()},
       home: StreamBuilder<User?>(
