@@ -21,46 +21,26 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      icon: Icon(Icons.mail),
-                    ),
                     keyboardType: TextInputType.emailAddress,
                     controller: _emailController,
-                    autofillHints: [AutofillHints.username],
+                    autofillHints: [AutofillHints.username, AutofillHints.email],
                   ),
                   TextField(
-                    decoration: InputDecoration(
-                      labelText: 'Passwort',
-                      icon: Icon(Icons.lock),
-                    ),
                     obscureText: true,
                     keyboardType: TextInputType.text,
                     controller: _passwordController,
                     autofillHints: [AutofillHints.password],
                   ),
                   OutlinedButton(
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
+                    style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
                     onPressed: () async {
                       try {
-                        await _firebaseAuth.signInWithEmailAndPassword(
-                          email: _emailController.text,
-                          password: _passwordController.text,
-                        );
+                        await _firebaseAuth.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
                       } on FirebaseAuthException catch (e) {
                         if (context.mounted) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              backgroundColor: Colors.redAccent,
-                              content: Text(
-                                'Login fehlgeschlagen: ${buildErrorMessage(e)}',
-                              ),
-                            ),
-                          );
+                          ScaffoldMessenger.of(
+                            context,
+                          ).showSnackBar(SnackBar(backgroundColor: Colors.redAccent, content: Text('Login fehlgeschlagen: ${buildErrorMessage(e)}')));
                         }
                       }
                     },
@@ -110,7 +90,8 @@ class LoginPage extends StatelessWidget {
         {
           return 'Falsches Passwort';
         }
-        case 'channel-error': {
+      case 'channel-error':
+        {
           return 'Allgemeiner Fehler';
         }
       default:

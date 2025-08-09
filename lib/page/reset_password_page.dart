@@ -16,34 +16,37 @@ class ResetPasswordPage extends StatelessWidget {
         builder: (BuildContext context) {
           return Container(
             padding: const EdgeInsets.all(16),
-            child: Column(
-              children: <Widget>[
-                TextField(
-                  decoration: InputDecoration(labelText: 'Email', icon: Icon(Icons.email)),
-                  keyboardType: TextInputType.emailAddress,
-                  controller: _emailController,
-                ),
-                OutlinedButton(
-                  style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
-                  child: const Text('Wiederherstellen'),
-                  onPressed: () async {
-                    try {
-                      await _firebaseAuth.sendPasswordResetEmail(email: _emailController.text);
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(
-                          context,
-                        ).showSnackBar(SnackBar(backgroundColor: Colors.green, content: Text('Email wurde an ${_emailController.text} verschickt')));
+            child: AutofillGroup(
+              child: Column(
+                children: <Widget>[
+                  TextField(
+                    decoration: InputDecoration(labelText: 'Email', icon: Icon(Icons.email)),
+                    keyboardType: TextInputType.emailAddress,
+                    autofillHints: [AutofillHints.email],
+                    controller: _emailController,
+                  ),
+                  OutlinedButton(
+                    style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                    child: const Text('Wiederherstellen'),
+                    onPressed: () async {
+                      try {
+                        await _firebaseAuth.sendPasswordResetEmail(email: _emailController.text);
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(
+                            context,
+                          ).showSnackBar(SnackBar(backgroundColor: Colors.green, content: Text('Email wurde an ${_emailController.text} verschickt')));
+                        }
+                      } on FirebaseAuthException catch (e) {
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(
+                            context,
+                          ).showSnackBar(SnackBar(backgroundColor: Colors.redAccent, content: Text('Problem: ${buildErrorMessage(e)}')));
+                        }
                       }
-                    } on FirebaseAuthException catch (e) {
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(
-                          context,
-                        ).showSnackBar(SnackBar(backgroundColor: Colors.redAccent, content: Text('Problem: ${buildErrorMessage(e)}')));
-                      }
-                    }
-                  },
-                ),
-              ],
+                    },
+                  ),
+                ],
+              ),
             ),
           );
         },
