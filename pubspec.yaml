@@ -2,7 +2,7 @@ name: mvu_platform
 description: "Musikverein Harmonie Urdorf"
 publish_to: 'none'
 
-version: 1.0.3+11
+version: 1.0.4+12
 
 environment:
   sdk: ^3.7.2
