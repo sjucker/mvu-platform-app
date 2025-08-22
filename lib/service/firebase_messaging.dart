@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:mvu_platform/service/messaging_service.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 Future<bool> requestPermissionAndSubscribe(bool force) async {
@@ -23,6 +24,7 @@ Future<bool> requestPermissionAndSubscribe(bool force) async {
 
     FirebaseMessaging.instance.onTokenRefresh
         .listen((fcmToken) {
+          updateFcmToken(fcmToken);
           FirebaseAnalytics.instance.logEvent(name: "FirebaseMessaging: onTokenRefresh");
         })
         .onError((error, stack) {
@@ -32,6 +34,13 @@ Future<bool> requestPermissionAndSubscribe(bool force) async {
     return true;
   }
   return false;
+}
+
+Future<void> getAndUpdateFcmToken() async {
+  String? token = await FirebaseMessaging.instance.getToken();
+  if (token != null) {
+    await updateFcmToken(token);
+  }
 }
 
 void subscribeTo(String topic) async {
@@ -49,6 +58,7 @@ void subscribeTo(String topic) async {
   }
 
   await FirebaseMessaging.instance.subscribeToTopic(topic);
+  await getAndUpdateFcmToken();
 }
 
 void unsubscribeFrom(String topic) async {
