@@ -58,4 +58,14 @@ class KonzertEntry {
     this.kompositionAudioSample,
     this.zugabe,
   );
+
+  String get title {
+    if (kompositionTitel != null) {
+      return kompositionTitel!;
+    } else if (placeholder != null) {
+      return "--- ${placeholder!} ---";
+    } else {
+      return "";
+    }
+  }
 }

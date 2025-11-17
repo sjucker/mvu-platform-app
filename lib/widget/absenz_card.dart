@@ -10,15 +10,12 @@ class AbsenzCard extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _AbsenzCardState(_absenz);
+    return _AbsenzCardState();
   }
 }
 
 class _AbsenzCardState extends State<AbsenzCard> {
-  _AbsenzCardState(this.absenz);
-
-  Absenz absenz;
-  late final TextEditingController _commentController = TextEditingController(text: absenz.remark);
+  late final TextEditingController _commentController = TextEditingController(text: widget._absenz.remark);
   late FocusNode _focusNode;
 
   @override
@@ -33,9 +30,9 @@ class _AbsenzCardState extends State<AbsenzCard> {
   }
 
   void updateComment() {
-    if (absenz.remark != _commentController.text) {
+    if (widget._absenz.remark != _commentController.text) {
       setState(() {
-        absenz.remark = _commentController.text;
+        widget._absenz.remark = _commentController.text;
       });
       update(context);
     }
@@ -52,28 +49,34 @@ class _AbsenzCardState extends State<AbsenzCard> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Row(children: <Widget>[
-          Expanded(child: Text(absenz.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18))),
-          IconButton(onPressed: () {
-            final Event event = Event(
-              title: absenz.simpleTitle,
-              location: absenz.location,
-              startDate: absenz.from,
-              endDate: absenz.to,
-            );
-            Add2Calendar.addEvent2Cal(event);
-          }, icon: Icon(Icons.calendar_month))
-        ]),
-        Row(children: <Widget>[Text(absenz.subtitle)]),
-        if (absenz.interna.isNotEmpty) ...[
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: Text(widget._absenz.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+            ),
+            IconButton(
+              onPressed: () {
+                final Event event = Event(
+                  title: widget._absenz.simpleTitle,
+                  location: widget._absenz.location,
+                  startDate: widget._absenz.from,
+                  endDate: widget._absenz.to,
+                );
+                Add2Calendar.addEvent2Cal(event);
+              },
+              icon: Icon(Icons.calendar_month),
+            ),
+          ],
+        ),
+        Row(children: <Widget>[Text(widget._absenz.subtitle)]),
+        if (widget._absenz.interna.isNotEmpty) ...[
           ExpansionTile(
             tilePadding: EdgeInsetsGeometry.zero,
             childrenPadding: EdgeInsetsGeometry.zero,
             leading: Icon(Icons.info_outline),
             title: Text("Details"),
             dense: true,
-            children: [ListTile(title: Text(absenz.interna))],
-
+            children: [ListTile(title: Text(widget._absenz.interna))],
           ),
         ],
         Row(
@@ -86,7 +89,7 @@ class _AbsenzCardState extends State<AbsenzCard> {
               ),
               onPressed: () {
                 setState(() {
-                  absenz.status = AbsenzState.positive;
+                  widget._absenz.status = AbsenzState.positive;
                 });
                 update(context);
               },
@@ -100,7 +103,7 @@ class _AbsenzCardState extends State<AbsenzCard> {
               ),
               onPressed: () {
                 setState(() {
-                  absenz.status = AbsenzState.negative;
+                  widget._absenz.status = AbsenzState.negative;
                 });
                 update(context);
               },
@@ -114,7 +117,7 @@ class _AbsenzCardState extends State<AbsenzCard> {
               ),
               onPressed: () {
                 setState(() {
-                  absenz.status = AbsenzState.inactive;
+                  widget._absenz.status = AbsenzState.inactive;
                 });
                 update(context);
               },
@@ -141,7 +144,7 @@ class _AbsenzCardState extends State<AbsenzCard> {
   }
 
   void update(BuildContext context) {
-    updateAbsenz(absenz)
+    updateAbsenz(widget._absenz)
         .then((_) => {if (context.mounted) showSnackbar(context, 'gespeichert', Colors.green[Theme.of(context).brightness == Brightness.dark ? 900 : 500])})
         .catchError((Object e) => {if (context.mounted) showSnackbar(context, 'Speichern fehlgeschlagen: $e', Colors.red)});
   }
@@ -152,7 +155,7 @@ class _AbsenzCardState extends State<AbsenzCard> {
   }
 
   Color? _buttonColor(BuildContext text, AbsenzState state, Color? color) =>
-      absenz.status == state ? color : Colors.grey[Theme.of(context).brightness == Brightness.dark ? 600 : 100];
+      widget._absenz.status == state ? color : Colors.grey[Theme.of(context).brightness == Brightness.dark ? 600 : 100];
 
-  Color? _buttonTextColor(AbsenzState state) => absenz.status == state ? Colors.white : Colors.black;
+  Color? _buttonTextColor(AbsenzState state) => widget._absenz.status == state ? Colors.white : Colors.black;
 }

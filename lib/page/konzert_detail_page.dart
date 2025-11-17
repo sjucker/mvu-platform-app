@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:mvu_platform/dto/konzert.dart';
 import 'package:mvu_platform/service/konzerte_service.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -39,25 +40,36 @@ class _KonzertDetailPageState extends State<KonzertDetailPage> {
         future: futureKonzert,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return ListView(
-              children: snapshot.requireData.entries
-                  .map(
-                    (entry) => ListTile(
-                      title: Text(entry.kompositionTitel ?? ""),
-                      trailing: entry.kompositionAudioSample != null
-                          ? IconButton(
-                              onPressed: () async {
-                                final url = entry.kompositionAudioSample!;
-                                if (await canLaunchUrlString(url)) {
-                                  await launchUrlString(url);
-                                }
-                              },
-                              icon: Icon(Icons.audio_file),
-                            )
-                          : null,
-                    ),
-                  )
-                  .toList(),
+            var konzert = snapshot.requireData;
+            return Column(
+              children: [
+                Text(dateTimeAndLocation(konzert)),
+                Text(konzert.description ?? ""),
+                Text(konzert.tenu ?? ""),
+                Expanded(
+                  child: ListView(
+                    children: konzert.entries
+                        .map(
+                          (entry) => ListTile(
+                            title: Text(entry.title),
+                            leading: entry.zugabe ? Icon(Icons.waving_hand) : null,
+                            trailing: entry.kompositionAudioSample != null
+                                ? IconButton(
+                                    onPressed: () async {
+                                      final url = entry.kompositionAudioSample!;
+                                      if (await canLaunchUrlString(url)) {
+                                        await launchUrlString(url);
+                                      }
+                                    },
+                                    icon: Icon(Icons.audio_file),
+                                  )
+                                : null,
+                          ),
+                        )
+                        .toList(),
+                  ),
+                ),
+              ],
             );
           } else if (snapshot.hasError) {
             return Text('${snapshot.error}');
@@ -68,5 +80,14 @@ class _KonzertDetailPageState extends State<KonzertDetailPage> {
         },
       ),
     );
+  }
+
+  String dateTimeAndLocation(Konzert konzert) {
+    var dateTime = DateFormat('dd.MM.yyyy, kk:mm').format(konzert.dateTime);
+    if (konzert.location != null) {
+      return '$dateTime, ${konzert.location}';
+    } else {
+      return dateTime;
+    }
   }
 }
