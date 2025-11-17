@@ -82,43 +82,43 @@ class _AbsenzCardState extends State<AbsenzCard> {
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(12),
                 shape: const RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.horizontal(start: Radius.circular(8))),
-                backgroundColor: _buttonColor(context, AbsenzState.POSITIVE, Colors.green[Theme.of(context).brightness == Brightness.dark ? 900 : 500]),
+                backgroundColor: _buttonColor(context, AbsenzState.positive, Colors.green[Theme.of(context).brightness == Brightness.dark ? 900 : 500]),
               ),
               onPressed: () {
                 setState(() {
-                  absenz.status = AbsenzState.POSITIVE;
+                  absenz.status = AbsenzState.positive;
                 });
                 update(context);
               },
-              child: Text('anwesend', style: TextStyle(color: _buttonTextColor(AbsenzState.POSITIVE))),
+              child: Text('anwesend', style: TextStyle(color: _buttonTextColor(AbsenzState.positive))),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(12),
                 shape: const RoundedRectangleBorder(),
-                backgroundColor: _buttonColor(context, AbsenzState.NEGATIVE, Colors.red[Theme.of(context).brightness == Brightness.dark ? 900 : 500]),
+                backgroundColor: _buttonColor(context, AbsenzState.negative, Colors.red[Theme.of(context).brightness == Brightness.dark ? 900 : 500]),
               ),
               onPressed: () {
                 setState(() {
-                  absenz.status = AbsenzState.NEGATIVE;
+                  absenz.status = AbsenzState.negative;
                 });
                 update(context);
               },
-              child: Text('abwesend', style: TextStyle(color: _buttonTextColor(AbsenzState.NEGATIVE))),
+              child: Text('abwesend', style: TextStyle(color: _buttonTextColor(AbsenzState.negative))),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.all(12),
                 shape: const RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.horizontal(end: Radius.circular(8))),
-                backgroundColor: _buttonColor(context, AbsenzState.INACTIVE, Colors.grey),
+                backgroundColor: _buttonColor(context, AbsenzState.inactive, Colors.grey),
               ),
               onPressed: () {
                 setState(() {
-                  absenz.status = AbsenzState.INACTIVE;
+                  absenz.status = AbsenzState.inactive;
                 });
                 update(context);
               },
-              child: Text('inaktiv', style: TextStyle(color: _buttonTextColor(AbsenzState.INACTIVE))),
+              child: Text('inaktiv', style: TextStyle(color: _buttonTextColor(AbsenzState.inactive))),
             ),
           ],
         ),

@@ -1,4 +1,4 @@
-enum AbsenzState { POSITIVE, NEGATIVE, INACTIVE, UNKNOWN }
+enum AbsenzState { positive, negative, inactive, unknown }
 
 class Absenz {
   Absenz(this.loginId, this.eventId, this.title, this.subtitle, this.interna, this.status, this.remark, this.simpleTitle, this.location, this.from, this.to);
@@ -10,7 +10,7 @@ class Absenz {
       json['title'],
       json['subtitle'],
       json['interna'],
-      AbsenzState.values.firstWhere((AbsenzState e) => e.toString() == 'AbsenzState.' + json['status']),
+      AbsenzState.values.firstWhere((AbsenzState e) => e.name.toUpperCase() == json['status'], orElse: () => AbsenzState.unknown),
       json['remark'],
       json['simpleTitle'],
       json['location'],
@@ -37,7 +37,7 @@ class Absenz {
     'title': title,
     'subtitle': subtitle,
     'interna': interna,
-    'status': status.toString().split('.')[1],
+    'status': status.name.toUpperCase(),
     'remark': remark,
   };
 
