@@ -1,7 +1,20 @@
 enum AbsenzState { positive, negative, inactive, unknown }
 
 class Absenz {
-  Absenz(this.loginId, this.eventId, this.title, this.subtitle, this.interna, this.status, this.remark, this.simpleTitle, this.location, this.from, this.to);
+  Absenz(
+    this.loginId,
+    this.eventId,
+    this.title,
+    this.subtitle,
+    this.interna,
+    this.status,
+    this.remark,
+    this.simpleTitle,
+    this.location,
+    this.from,
+    this.to,
+    this.infoOnly,
+  );
 
   factory Absenz.fromJson(Map<String, dynamic> json) {
     return Absenz(
@@ -16,6 +29,7 @@ class Absenz {
       json['location'],
       DateTime.parse(json['from']),
       DateTime.parse(json['to']),
+      json['infoOnly'],
     );
   }
 
@@ -26,10 +40,11 @@ class Absenz {
   final String interna;
   AbsenzState status;
   String? remark;
-  String simpleTitle;
-  String location;
-  DateTime from;
-  DateTime to;
+  final String simpleTitle;
+  final String location;
+  final DateTime from;
+  final DateTime to;
+  final bool infoOnly;
 
   Map<String, dynamic> toJson() => <String, dynamic>{
     'loginId': loginId,
@@ -39,6 +54,7 @@ class Absenz {
     'interna': interna,
     'status': status.name.toUpperCase(),
     'remark': remark,
+    'infoOnly': infoOnly,
   };
 
   @override

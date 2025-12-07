@@ -68,7 +68,7 @@ class _AbsenzCardState extends State<AbsenzCard> {
             ),
           ],
         ),
-        Row(children: <Widget>[Text(widget._absenz.subtitle)]),
+        Row(children: <Widget>[Expanded(child: Text(widget._absenz.subtitle))]),
         if (widget._absenz.interna.isNotEmpty) ...[
           ExpansionTile(
             tilePadding: EdgeInsetsGeometry.zero,
@@ -79,66 +79,68 @@ class _AbsenzCardState extends State<AbsenzCard> {
             children: [ListTile(title: Text(widget._absenz.interna))],
           ),
         ],
-        Row(
-          children: <Widget>[
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(12),
-                shape: const RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.horizontal(start: Radius.circular(8))),
-                backgroundColor: _buttonColor(context, AbsenzState.positive, Colors.green[Theme.of(context).brightness == Brightness.dark ? 900 : 500]),
-              ),
-              onPressed: () {
-                setState(() {
-                  widget._absenz.status = AbsenzState.positive;
-                });
-                update(context);
-              },
-              child: Text('anwesend', style: TextStyle(color: _buttonTextColor(AbsenzState.positive))),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(12),
-                shape: const RoundedRectangleBorder(),
-                backgroundColor: _buttonColor(context, AbsenzState.negative, Colors.red[Theme.of(context).brightness == Brightness.dark ? 900 : 500]),
-              ),
-              onPressed: () {
-                setState(() {
-                  widget._absenz.status = AbsenzState.negative;
-                });
-                update(context);
-              },
-              child: Text('abwesend', style: TextStyle(color: _buttonTextColor(AbsenzState.negative))),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.all(12),
-                shape: const RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.horizontal(end: Radius.circular(8))),
-                backgroundColor: _buttonColor(context, AbsenzState.inactive, Colors.grey),
-              ),
-              onPressed: () {
-                setState(() {
-                  widget._absenz.status = AbsenzState.inactive;
-                });
-                update(context);
-              },
-              child: Text('inaktiv', style: TextStyle(color: _buttonTextColor(AbsenzState.inactive))),
-            ),
-          ],
-        ),
-        Row(
-          children: <Widget>[
-            Flexible(
-              child: TextField(
-                onSubmitted: (String value) {
-                  updateComment();
+        if (!widget._absenz.infoOnly) ...[
+          Row(
+            children: <Widget>[
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(12),
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.horizontal(start: Radius.circular(8))),
+                  backgroundColor: _buttonColor(context, AbsenzState.positive, Colors.green[Theme.of(context).brightness == Brightness.dark ? 900 : 500]),
+                ),
+                onPressed: () {
+                  setState(() {
+                    widget._absenz.status = AbsenzState.positive;
+                  });
+                  update(context);
                 },
-                decoration: const InputDecoration(labelText: 'Bemerkung'),
-                controller: _commentController,
-                focusNode: _focusNode,
+                child: Text('anwesend', style: TextStyle(color: _buttonTextColor(AbsenzState.positive))),
               ),
-            ),
-          ],
-        ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(12),
+                  shape: const RoundedRectangleBorder(),
+                  backgroundColor: _buttonColor(context, AbsenzState.negative, Colors.red[Theme.of(context).brightness == Brightness.dark ? 900 : 500]),
+                ),
+                onPressed: () {
+                  setState(() {
+                    widget._absenz.status = AbsenzState.negative;
+                  });
+                  update(context);
+                },
+                child: Text('abwesend', style: TextStyle(color: _buttonTextColor(AbsenzState.negative))),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.all(12),
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.horizontal(end: Radius.circular(8))),
+                  backgroundColor: _buttonColor(context, AbsenzState.inactive, Colors.grey),
+                ),
+                onPressed: () {
+                  setState(() {
+                    widget._absenz.status = AbsenzState.inactive;
+                  });
+                  update(context);
+                },
+                child: Text('inaktiv', style: TextStyle(color: _buttonTextColor(AbsenzState.inactive))),
+              ),
+            ],
+          ),
+          Row(
+            children: <Widget>[
+              Flexible(
+                child: TextField(
+                  onSubmitted: (String value) {
+                    updateComment();
+                  },
+                  decoration: const InputDecoration(labelText: 'Bemerkung'),
+                  controller: _commentController,
+                  focusNode: _focusNode,
+                ),
+              ),
+            ],
+          ),
+        ],
       ],
     );
   }
