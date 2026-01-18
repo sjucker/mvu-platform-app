@@ -32,6 +32,7 @@ class KonzertEntry {
   final String? kompositionArrangeur;
   final String? kompositionAudioSample;
   final bool zugabe;
+  final String? additionalInfo;
 
   factory KonzertEntry.fromJson(Map<String, dynamic> json) {
     return KonzertEntry(
@@ -44,6 +45,7 @@ class KonzertEntry {
       json['kompositionArrangeur'],
       json['kompositionAudioSample'],
       json['zugabe'],
+      json['additionalInfo'],
     );
   }
 
@@ -57,6 +59,7 @@ class KonzertEntry {
     this.kompositionArrangeur,
     this.kompositionAudioSample,
     this.zugabe,
+    this.additionalInfo,
   );
 
   String get title {

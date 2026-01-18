@@ -52,6 +52,7 @@ class _KonzertDetailPageState extends State<KonzertDetailPage> {
                         .map(
                           (entry) => ListTile(
                             title: Text(entry.title),
+                            subtitle: entry.additionalInfo != null ? Text(entry.additionalInfo!) : null,
                             leading: entry.zugabe ? Icon(Icons.waving_hand) : null,
                             trailing: entry.kompositionAudioSample != null
                                 ? IconButton(
