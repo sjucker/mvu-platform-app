@@ -152,8 +152,9 @@ class _AbsenzCardState extends State<AbsenzCard> {
   }
 
   void showSnackbar(BuildContext context, String text, Color? backgroundColor) {
-    ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text), backgroundColor: backgroundColor));
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text(text), backgroundColor: backgroundColor));
   }
 
   Color? _buttonColor(BuildContext text, AbsenzState state, Color? color) =>
