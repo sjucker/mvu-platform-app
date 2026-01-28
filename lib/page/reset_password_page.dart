@@ -1,12 +1,23 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class ResetPasswordPage extends StatelessWidget {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+class ResetPasswordPage extends StatefulWidget {
+  const ResetPasswordPage({super.key});
+
+  @override
+  State<ResetPasswordPage> createState() => _ResetPasswordPageState();
+}
+
+class _ResetPasswordPageState extends State<ResetPasswordPage> {
+  final FirebaseAuth _firebaseAuth = .instance;
 
   final TextEditingController _emailController = TextEditingController();
 
-  ResetPasswordPage({super.key});
+  @override
+  void dispose() {
+    _emailController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,19 +26,19 @@ class ResetPasswordPage extends StatelessWidget {
       body: Builder(
         builder: (BuildContext context) {
           return Container(
-            padding: const EdgeInsets.all(16),
+            padding: const .all(16),
             child: AutofillGroup(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: .stretch,
                 children: <Widget>[
                   TextField(
-                    decoration: InputDecoration(labelText: 'Email'),
-                    keyboardType: TextInputType.emailAddress,
-                    autofillHints: [AutofillHints.email],
+                    decoration: const InputDecoration(labelText: 'Email'),
+                    keyboardType: .emailAddress,
+                    autofillHints: const [AutofillHints.email],
                     controller: _emailController,
                   ),
                   OutlinedButton(
-                    style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                    style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: .circular(10))),
                     child: const Text('Wiederherstellen'),
                     onPressed: () async {
                       try {

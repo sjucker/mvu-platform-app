@@ -12,6 +12,8 @@ extension RepertoireTypeDescription on RepertoireType {
 }
 
 class Repertoire {
+  Repertoire(this.type, this.createdAt, this.createdBy, this.details, this.entries);
+
   factory Repertoire.fromJson(Map<String, dynamic> json) {
     return Repertoire(
       RepertoireType.values.firstWhere((RepertoireType e) => e.name.toUpperCase() == json['type']),
@@ -27,17 +29,10 @@ class Repertoire {
   final String createdBy;
   final String details;
   final List<RepertoireEntry> entries;
-
-  Repertoire(this.type, this.createdAt, this.createdBy, this.details, this.entries);
 }
 
 class RepertoireEntry {
-  final int kompositionId;
-  final String kompositionTitel;
-  final String? kompositionKomponist;
-  final String? kompositionArrangeur;
-  final String? kompositionAudioSample;
-  final double? number;
+  RepertoireEntry(this.kompositionId, this.kompositionTitel, this.kompositionKomponist, this.kompositionArrangeur, this.kompositionAudioSample, this.number);
 
   factory RepertoireEntry.fromJson(Map<String, dynamic> json) {
     return RepertoireEntry(
@@ -50,7 +45,12 @@ class RepertoireEntry {
     );
   }
 
-  RepertoireEntry(this.kompositionId, this.kompositionTitel, this.kompositionKomponist, this.kompositionArrangeur, this.kompositionAudioSample, this.number);
+  final int kompositionId;
+  final String kompositionTitel;
+  final String? kompositionKomponist;
+  final String? kompositionArrangeur;
+  final String? kompositionAudioSample;
+  final double? number;
 
   String get subtitle {
     if (kompositionKomponist != null && kompositionArrangeur != null) {
@@ -58,7 +58,7 @@ class RepertoireEntry {
     } else if (kompositionKomponist != null) {
       return kompositionKomponist!;
     } else if (kompositionArrangeur != null) {
-     return "arr. $kompositionArrangeur";
+      return "arr. $kompositionArrangeur";
     } else {
       return "";
     }

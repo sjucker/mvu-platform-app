@@ -39,14 +39,14 @@ class _MvuNavigationDrawerState extends State<MvuNavigationDrawer> {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     return Drawer(
       child: ListView(
-        padding: EdgeInsets.zero,
+        padding: .zero,
         children: <Widget>[
           const DrawerHeader(
             decoration: BoxDecoration(color: mvuRed),
             child: Text('Musikverein Harmonie Urdorf', style: TextStyle(color: Colors.white, fontSize: 24)),
           ),
           SwitchListTile(
-            title: Text('Dark Theme'),
+            title: const Text('Dark Theme'),
             secondary: _darkTheme ? const Icon(Icons.lightbulb_outlined) : const Icon(Icons.lightbulb),
             value: _darkTheme,
             onChanged: (bool value) {
@@ -90,13 +90,13 @@ class _MvuNavigationDrawerState extends State<MvuNavigationDrawer> {
             },
           ),
           ListTile(
-            trailing: Icon(Icons.exit_to_app),
+            trailing: const Icon(Icons.exit_to_app),
             title: const Text('Logout'),
             onTap: () {
               _firebaseAuth.signOut();
             },
           ),
-          ListTile(title: VersionNumber()),
+          const ListTile(title: VersionNumber()),
         ],
       ),
     );

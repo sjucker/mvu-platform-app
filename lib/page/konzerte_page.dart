@@ -25,7 +25,7 @@ class _KonzertePageState extends State<KonzertePage> {
     return Scaffold(
       appBar: AppBar(title: const Text('Konzerte')),
       body: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const .all(16),
         child: FutureBuilder(
           future: futureKonzerte,
           builder: (context, snapshot) {
@@ -35,7 +35,7 @@ class _KonzertePageState extends State<KonzertePage> {
                     .map(
                       (entry) => ListTile(
                         title: Text(entry.name),
-                        trailing: Icon(Icons.keyboard_arrow_right_sharp),
+                        trailing: const Icon(Icons.keyboard_arrow_right_sharp),
                         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => KonzertDetailPage(id: entry.id))),
                       ),
                     )
@@ -48,7 +48,7 @@ class _KonzertePageState extends State<KonzertePage> {
           },
         ),
       ),
-      drawer: MvuNavigationDrawer(),
+      drawer: const MvuNavigationDrawer(),
     );
   }
 }

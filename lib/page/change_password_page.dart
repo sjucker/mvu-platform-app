@@ -76,11 +76,11 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
     return Scaffold(
       appBar: AppBar(title: const Text('Passwort ändern')),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const .all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
+            crossAxisAlignment: .stretch,
             children: <Widget>[
               TextFormField(
                 controller: _newPasswordController,
@@ -114,15 +114,15 @@ class _ChangePasswordPageState extends State<ChangePasswordPage> {
               const SizedBox(height: 20),
               if (_errorMessage != null)
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: Text(_errorMessage!, style: TextStyle(color: Theme.of(context).colorScheme.error), textAlign: TextAlign.center),
-                ),
-              OutlinedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                  padding: const .only(bottom: 10.0),
+                  child: Text(
+                    _errorMessage!,
+                    style: TextStyle(color: Theme.of(context).colorScheme.error),
+                    textAlign: .center,
                   ),
                 ),
+              OutlinedButton(
+                style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: .circular(10))),
                 onPressed: _isLoading ? null : _changePassword,
                 child: _isLoading ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2)) : const Text('Passwort ändern'),
               ),

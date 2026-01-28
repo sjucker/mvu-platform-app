@@ -44,7 +44,7 @@ class _RepertoireDetailPageState extends State<RepertoireDetailPage> {
                                   await launchUrlString(url);
                                 }
                               },
-                              icon: Icon(Icons.audio_file),
+                              icon: const Icon(Icons.audio_file),
                             )
                           : null,
                     ),

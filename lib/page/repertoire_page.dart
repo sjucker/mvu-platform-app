@@ -16,12 +16,12 @@ class RepertoirePage extends StatelessWidget {
           final repertoireType = RepertoireType.values[index];
           return ListTile(
             title: Text(repertoireType.description),
-            trailing: Icon(Icons.keyboard_arrow_right_sharp),
+            trailing: const Icon(Icons.keyboard_arrow_right_sharp),
             onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => RepertoireDetailPage(repertoireType: repertoireType))),
           );
         },
       ),
-      drawer: MvuNavigationDrawer(),
+      drawer: const MvuNavigationDrawer(),
     );
   }
 }

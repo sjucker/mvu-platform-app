@@ -15,7 +15,7 @@ class VersionNumber extends StatelessWidget {
           case ConnectionState.none:
           case ConnectionState.active:
           case ConnectionState.waiting:
-            return LinearProgressIndicator();
+            return const LinearProgressIndicator();
           case ConnectionState.done:
             return Text('Version: ${snapshot.data}');
         }

@@ -1,13 +1,25 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  LoginPage({super.key});
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,26 +28,26 @@ class LoginPage extends StatelessWidget {
       body: Builder(
         builder: (BuildContext context) {
           return Container(
-            padding: const EdgeInsets.all(16),
+            padding: const .all(16),
             child: AutofillGroup(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: .stretch,
                 children: <Widget>[
                   TextField(
-                    decoration: InputDecoration(labelText: 'Email'),
+                    decoration: const InputDecoration(labelText: 'Email'),
                     keyboardType: TextInputType.emailAddress,
                     controller: _emailController,
-                    autofillHints: [AutofillHints.username, AutofillHints.email],
+                    autofillHints: const [AutofillHints.username, AutofillHints.email],
                   ),
                   TextField(
-                    decoration: InputDecoration(labelText: 'Passwort'),
+                    decoration: const InputDecoration(labelText: 'Passwort'),
                     obscureText: true,
                     keyboardType: TextInputType.text,
                     controller: _passwordController,
-                    autofillHints: [AutofillHints.password],
+                    autofillHints: const [AutofillHints.password],
                   ),
                   OutlinedButton(
-                    style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                    style: ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: .circular(10))),
                     onPressed: () async {
                       try {
                         await _firebaseAuth.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
@@ -50,7 +62,7 @@ class LoginPage extends StatelessWidget {
                     child: const Text('Login'),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 40),
+                    padding: const .only(top: 40),
                     child: TextButton(
                       onPressed: () {
                         Navigator.pushNamed(context, '/reset-password');

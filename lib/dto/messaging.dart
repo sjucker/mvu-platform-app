@@ -7,7 +7,5 @@ class TokenUpdate {
 
   final String token;
 
-  Map<String, dynamic> toJson() => <String, dynamic>{
-    'token': token
-  };
+  Map<String, dynamic> toJson() => <String, dynamic>{'token': token};
 }

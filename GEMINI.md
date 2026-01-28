@@ -7,6 +7,7 @@ running Flutter applications for various platforms, including desktop, web, and
 mobile platforms.
 
 ## Interaction Guidelines
+
 * **User Persona:** Assume the user is familiar with programming concepts but
   may be new to Dart.
 * **Explanations:** When generating code, provide explanations for Dart-specific
@@ -24,10 +25,12 @@ mobile platforms.
   common issues. Use the `analyze_files` tool to run the linter.
 
 ## Project Structure
+
 * **Standard Structure:** Assumes a standard Flutter project structure with
   `lib/main.dart` as the primary application entry point.
 
 ## Flutter style guide
+
 * **SOLID Principles:** Apply SOLID principles throughout the codebase.
 * **Concise and Declarative:** Write concise, modern, technical Dart code.
   Prefer functional and declarative patterns.
@@ -44,6 +47,7 @@ mobile platforms.
   `go_router`.
 
 ## Package Management
+
 * **Pub Tool:** To manage packages, use the `pub` tool, if available.
 * **External Packages:** If a new feature requires an external package, use the
   `pub_dev_search` tool, if it is available. Otherwise, identify the most
@@ -60,6 +64,7 @@ mobile platforms.
   is available. Otherwise, run `dart pub remove <package_name>`.
 
 ## Code Quality
+
 * **Code structure:** Adhere to maintainable code structure and separation of
   concerns (e.g., UI logic separate from business logic).
 * **Naming conventions:** Avoid abbreviations and use meaningful, consistent,
@@ -82,6 +87,7 @@ mobile platforms.
 * **Logging:** Use the `logging` package instead of `print`.
 
 ## Dart Best Practices
+
 * **Effective Dart:** Follow the official Effective Dart guidelines
   (https://dart.dev/effective-dart)
 * **Class Organization:** Define related classes within the same library file.
@@ -111,6 +117,7 @@ mobile platforms.
 * **Arrow Functions:** Use arrow syntax for simple one-line functions.
 
 ## Flutter Best Practices
+
 * **Immutability:** Widgets (especially `StatelessWidget`) are immutable; when
   the UI needs to change, Flutter rebuilds the widget tree.
 * **Composition:** Prefer composing smaller widgets over extending existing
@@ -129,6 +136,7 @@ mobile platforms.
   network calls or complex computations, directly within `build()` methods.
 
 ## API Design Principles
+
 When building reusable APIs, such as a library, follow these principles.
 
 * **Consider the User:** Design APIs from the perspective of the person who will
@@ -137,6 +145,7 @@ When building reusable APIs, such as a library, follow these principles.
   design. It should be clear, concise, and provide examples.
 
 ## Application Architecture
+
 * **Separation of Concerns:** Aim for separation of concerns similar to MVC/MVVM, with defined Model,
   View, and ViewModel/Controller roles.
 * **Logical Layers:** Organize the project into logical layers:
@@ -158,12 +167,13 @@ include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
-    # Add additional lint rules here:
-    # avoid_print: false
-    # prefer_single_quotes: true
+  # Add additional lint rules here:
+  # avoid_print: false
+  # prefer_single_quotes: true
 ```
 
 ### State Management
+
 * **Built-in Solutions:** Prefer Flutter's built-in state management solutions.
   Do not use a third-party package unless explicitly requested.
 * **Streams:** Use `Streams` and `StreamBuilder` for handling a sequence of
@@ -202,12 +212,14 @@ linter:
   for state management unless explicitly requested).
 
 ### Data Flow
+
 * **Data Structures:** Define data structures (classes) to represent the data
   used in the application.
 * **Data Abstraction:** Abstract data sources (e.g., API calls, database
   operations) using Repositories/Services to promote testability.
 
 ### Routing
+
 * **GoRouter:** Use the `go_router` package for declarative navigation, deep
   linking, and web support.
 * **GoRouter Setup:** To use `go_router`, first add it to your `pubspec.yaml`
@@ -261,6 +273,7 @@ linter:
   ```
 
 ### Data Handling & Serialization
+
 * **JSON Serialization:** Use `json_serializable` and `json_annotation` for
   parsing and encoding JSON data.
 * **Field Renaming:** When encoding data, use `fieldRename: FieldRename.snake`
@@ -284,8 +297,8 @@ linter:
   }
   ```
 
-
 ### Logging
+
 * **Structured Logging:** Use the `log` function from `dart:developer` for
   structured logging that integrates with Dart DevTools.
 
@@ -310,6 +323,7 @@ linter:
   ```
 
 ## Code Generation
+
 * **Build Runner:** If the project uses code generation, ensure that
   `build_runner` is listed as a dev dependency in `pubspec.yaml`.
 * **Code Generation Tasks:** Use `build_runner` for all code generation tasks,
@@ -322,6 +336,7 @@ linter:
   ```
 
 ## Testing
+
 * **Running Tests:** To run tests, use the `run_tests` tool if it is available,
   otherwise use `flutter test`.
 * **Unit Tests:** Use `package:test` for unit tests.
@@ -331,6 +346,7 @@ linter:
   assertions over the default `matchers`.
 
 ### Testing Best practices
+
 * **Convention:** Follow the Arrange-Act-Assert (or Given-When-Then) pattern.
 * **Unit Tests:** Write unit tests for domain logic, data layer, and state
   management.
@@ -347,6 +363,7 @@ linter:
 * **Coverage:** Aim for high test coverage.
 
 ## Visual Design & Theming
+
 * **UI Design:** Build beautiful and intuitive user interfaces that follow
   modern design guidelines.
 * **Responsiveness:** Ensure the app is mobile responsive and adapts to
@@ -366,6 +383,7 @@ linter:
   create a "glow" effect.
 
 ### Theming
+
 * **Centralized Theme:** Define a centralized `ThemeData` object to ensure a
   consistent application-wide style.
 * **Light and Dark Themes:** Implement support for both light and dark themes,
@@ -404,6 +422,7 @@ linter:
   ```
 
 ### Assets and Images
+
 * **Image Guidelines:** If images are needed, make them relevant and meaningful,
   with appropriate size, layout, and licensing (e.g., freely available). Provide
   placeholder images if real ones are not available.
@@ -443,6 +462,7 @@ linter:
       },
     )
     ```
+
 ## UI Theming and Styling Code
 
 * **Responsiveness:** Use `LayoutBuilder` or `MediaQuery` to create responsive
@@ -456,11 +476,12 @@ linter:
 
 ```dart
 // When using network images, always provide an errorBuilder.
-Image.network(
-  'https://example.com/image.png',
-  errorBuilder: (context, error, stackTrace) {
-    return const Icon(Icons.error); // Show an error icon
-  },
+Image.network
+('https://example.com/image.png
+'
+,errorBuilder: (context, error, stackTrace) {
+return const Icon(Icons.error); // Show an error icon
+},
 );
 ```
 
@@ -483,24 +504,27 @@ Image.network(
 
 ```dart
 // main.dart
-MaterialApp(
-  theme: ThemeData(
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.deepPurple,
-      brightness: Brightness.light,
-    ),
-    textTheme: const TextTheme(
-      displayLarge: TextStyle(fontSize: 57.0, fontWeight: FontWeight.bold),
-      bodyMedium: TextStyle(fontSize: 14.0, height: 1.4),
-    ),
-  ),
-  darkTheme: ThemeData(
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.deepPurple,
-      brightness: Brightness.dark,
-    ),
-  ),
-  home: const MyHomePage(),
+MaterialApp
+(
+theme: ThemeData(
+colorScheme: ColorScheme.fromSeed(
+seedColor: Colors.deepPurple,
+brightness: Brightness.light,
+),
+textTheme: const TextTheme(
+displayLarge: TextStyle(fontSize: 57.0, fontWeight: FontWeight.bold),
+bodyMedium: TextStyle(fontSize: 14.0, height: 1.4),
+),
+),
+darkTheme: ThemeData(
+colorScheme: ColorScheme.fromSeed(
+seedColor: Colors.deepPurple,
+brightness: Brightness.dark,
+),
+),
+home: const MyHomePage(
+)
+,
 );
 ```
 
@@ -543,15 +567,16 @@ class MyColors extends ThemeExtension<MyColors> {
 }
 
 // 2. Register it in ThemeData
-theme: ThemeData(
-  extensions: const <ThemeExtension<dynamic>>[
-    MyColors(success: Colors.green, danger: Colors.red),
-  ],
+theme: ThemeData
+(
+extensions: const <ThemeExtension<dynamic>>[
+MyColors(success: Colors.green, danger: Colors.red),
+],
 ),
 
 // 3. Use it in a widget
 Container(
-  color: Theme.of(context).extension<MyColors>()!.success,
+color: Theme.of(context).extension<MyColors>()!.success,
 )
 ```
 
@@ -566,7 +591,7 @@ Container(
 // Example: Creating a button style that changes color when pressed.
 final ButtonStyle myButtonStyle = ButtonStyle(
   backgroundColor: WidgetStateProperty.resolveWith<Color>(
-    (Set<WidgetState> states) {
+        (Set<WidgetState> states) {
       if (states.contains(WidgetState.pressed)) {
         return Colors.green; // Color when pressed
       }
@@ -632,7 +657,7 @@ final ButtonStyle myButtonStyle = ButtonStyle(
             left: 10,
             child: Card(
               child: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: .all(8.0),
                 child: Text('I am an overlay!'),
               ),
             ),
@@ -711,19 +736,20 @@ final ButtonStyle myButtonStyle = ButtonStyle(
 
 ```dart
 // In your ThemeData
-textTheme: const TextTheme(
-  displayLarge: TextStyle(fontSize: 57.0, fontWeight: FontWeight.bold),
-  titleLarge: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
-  bodyLarge: TextStyle(fontSize: 16.0, height: 1.5),
-  bodyMedium: TextStyle(fontSize: 14.0, height: 1.4),
-  labelSmall: TextStyle(fontSize: 11.0, color: Colors.grey),
-),
+textTheme: const TextTheme
+(
+displayLarge: TextStyle(fontSize: 57.0, fontWeight: FontWeight.bold),
+titleLarge: TextStyle(fontSize: 22.0, fontWeight: FontWeight.bold),
+bodyLarge: TextStyle(fontSize: 16.0, height: 1.5),
+bodyMedium: TextStyle(fontSize: 14.0, height: 1.4),
+labelSmall: TextStyle(fontSize: 11.0, color: Colors.grey),
+)
+,
 ```
 
 ## Documentation
 
 * **`dartdoc`:** Write `dartdoc`-style comments for all public APIs.
-
 
 ### Documentation Philosophy
 
@@ -774,6 +800,7 @@ textTheme: const TextTheme(
   any metadata annotations.
 
 ## Accessibility (A11Y)
+
 Implement accessibility features to empower all users, assuming a wide variety
 of users with different physical abilities, mental abilities, age groups,
 education levels, and learning styles.

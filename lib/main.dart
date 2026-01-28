@@ -39,7 +39,7 @@ Future<void> main() async {
   await initFirebase();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  isDarkTheme().then((darkTheme) => runApp(ChangeNotifierProvider<ThemeNotifier>(create: (_) => ThemeNotifier(darkTheme), child: MvuApp())));
+  isDarkTheme().then((darkTheme) => runApp(ChangeNotifierProvider<ThemeNotifier>(create: (_) => ThemeNotifier(darkTheme), child: const MvuApp())));
 }
 
 Future<void> setupMessaging() async {
@@ -62,10 +62,14 @@ class MvuApp extends StatelessWidget {
     return MaterialApp(
       title: 'Musikverein Harmonie Urdorf',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: mvuRed, brightness: Brightness.light)),
-      darkTheme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: mvuRed, brightness: Brightness.dark)),
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: mvuRed, brightness: Brightness.light),
+      ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: mvuRed, brightness: Brightness.dark),
+      ),
       themeMode: themeNotifier.getTheme(),
-      routes: <String, WidgetBuilder>{'/reset-password': (BuildContext context) => ResetPasswordPage()},
+      routes: <String, WidgetBuilder>{'/reset-password': (BuildContext context) => const ResetPasswordPage()},
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
@@ -73,9 +77,9 @@ class MvuApp extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           } else {
             if (snapshot.hasData) {
-              return AbsenzenPage();
+              return const AbsenzenPage();
             } else {
-              return LoginPage();
+              return const LoginPage();
             }
           }
         },

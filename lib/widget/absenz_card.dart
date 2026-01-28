@@ -52,7 +52,7 @@ class _AbsenzCardState extends State<AbsenzCard> {
         Row(
           children: <Widget>[
             Expanded(
-              child: Text(widget._absenz.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+              child: Text(widget._absenz.title, style: const TextStyle(fontWeight: .bold, fontSize: 18)),
             ),
             IconButton(
               onPressed: () {
@@ -64,17 +64,17 @@ class _AbsenzCardState extends State<AbsenzCard> {
                 );
                 Add2Calendar.addEvent2Cal(event);
               },
-              icon: Icon(Icons.calendar_month),
+              icon: const Icon(Icons.calendar_month),
             ),
           ],
         ),
         Row(children: <Widget>[Expanded(child: Text(widget._absenz.subtitle))]),
         if (widget._absenz.interna.isNotEmpty) ...[
           ExpansionTile(
-            tilePadding: EdgeInsetsGeometry.zero,
-            childrenPadding: EdgeInsetsGeometry.zero,
-            leading: Icon(Icons.info_outline),
-            title: Text("Details"),
+            tilePadding: .zero,
+            childrenPadding: .zero,
+            leading: const Icon(Icons.info_outline),
+            title: const Text("Details"),
             dense: true,
             children: [ListTile(title: Text(widget._absenz.interna))],
           ),
@@ -84,8 +84,8 @@ class _AbsenzCardState extends State<AbsenzCard> {
             children: <Widget>[
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(12),
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.horizontal(start: Radius.circular(8))),
+                  padding: const .all(12),
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.horizontal(start: .circular(8))),
                   backgroundColor: _buttonColor(context, AbsenzState.positive, Colors.green[Theme.of(context).brightness == Brightness.dark ? 900 : 500]),
                 ),
                 onPressed: () {
@@ -98,7 +98,7 @@ class _AbsenzCardState extends State<AbsenzCard> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(12),
+                  padding: const .all(12),
                   shape: const RoundedRectangleBorder(),
                   backgroundColor: _buttonColor(context, AbsenzState.negative, Colors.red[Theme.of(context).brightness == Brightness.dark ? 900 : 500]),
                 ),
@@ -112,8 +112,8 @@ class _AbsenzCardState extends State<AbsenzCard> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.all(12),
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.horizontal(end: Radius.circular(8))),
+                  padding: const .all(12),
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadiusDirectional.horizontal(end: .circular(8))),
                   backgroundColor: _buttonColor(context, AbsenzState.inactive, Colors.grey),
                 ),
                 onPressed: () {

@@ -34,7 +34,7 @@ class _AbsenzenListState extends State<AbsenzenList> {
                   children: <Widget>[
                     Text('Fehler: ${snapshot.error}'),
                     IconButton(
-                      icon: Icon(Icons.refresh),
+                      icon: const Icon(Icons.refresh),
                       onPressed: () {
                         final Future<List<Absenz>> fetched = getAbsenzen();
                         setState(() {
@@ -55,7 +55,7 @@ class _AbsenzenListState extends State<AbsenzenList> {
                   return fetched;
                 },
                 child: ListView.separated(
-                  separatorBuilder: (BuildContext context, int index) => Divider(color: Colors.grey, height: 32),
+                  separatorBuilder: (BuildContext context, int index) => const Divider(color: Colors.grey, height: 32),
                   itemCount: snapshot.requireData.length,
                   itemBuilder: (BuildContext context, int index) => AbsenzCard(snapshot.requireData[index]),
                 ),

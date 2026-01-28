@@ -9,8 +9,8 @@ class AbsenzenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Absenzen')),
-      body: Container(padding: const EdgeInsets.all(16), child: AbsenzenList()),
-      drawer: MvuNavigationDrawer(),
+      body: Container(padding: const .all(16), child: const AbsenzenList()),
+      drawer: const MvuNavigationDrawer(),
     );
   }
 }
