@@ -43,9 +43,9 @@ class _KonzertDetailPageState extends State<KonzertDetailPage> {
             var konzert = snapshot.requireData;
             return Column(
               children: [
-                Text(dateTimeAndLocation(konzert)),
-                Text(konzert.description ?? ""),
-                Text(konzert.tenu ?? ""),
+                ListTile(leading: const Icon(Icons.calendar_month), title: Text(dateTimeAndLocation(konzert))),
+                if (konzert.description?.isNotEmpty == true) ListTile(leading: const Icon(Icons.info_outline), title: Text(konzert.description!)),
+                if (konzert.tenu?.isNotEmpty == true) ListTile(leading: const Icon(Icons.checkroom), title: Text(konzert.tenu!)),
                 Expanded(
                   child: ListView(
                     children: konzert.entries

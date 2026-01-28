@@ -34,7 +34,6 @@ class _KonzertePageState extends State<KonzertePage> {
                 children: snapshot.requireData
                     .map(
                       (entry) => ListTile(
-                        leading: Icon(Icons.queue_music),
                         title: Text(entry.name),
                         trailing: Icon(Icons.keyboard_arrow_right_sharp),
                         onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => KonzertDetailPage(id: entry.id))),
