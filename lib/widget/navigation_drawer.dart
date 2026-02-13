@@ -1,10 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mvu_platform/constants.dart';
-import 'package:mvu_platform/page/absenzen_page.dart';
-import 'package:mvu_platform/page/change_password_page.dart';
-import 'package:mvu_platform/page/konzerte_page.dart';
-import 'package:mvu_platform/page/repertoire_page.dart';
 import 'package:mvu_platform/service/dark_theme.dart';
 import 'package:mvu_platform/service/preference_service.dart';
 import 'package:mvu_platform/widget/version_number.dart';
@@ -61,32 +58,28 @@ class _MvuNavigationDrawerState extends State<MvuNavigationDrawer> {
             leading: const Icon(Icons.calendar_month),
             title: const Text('Absenzen'),
             onTap: () {
-              Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const AbsenzenPage()));
+              context.go('/absenzen');
             },
           ),
           ListTile(
             leading: const Icon(Icons.queue_music),
             title: const Text('Konzerte'),
             onTap: () {
-              Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const KonzertePage()));
+              context.go('/konzerte');
             },
           ),
           ListTile(
             leading: const Icon(Icons.list),
             title: const Text('Repertoire'),
             onTap: () {
-              Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const RepertoirePage()));
+              context.go('/repertoire');
             },
           ),
           ListTile(
             leading: const Icon(Icons.lock_outline),
             title: const Text('Passwort ändern'),
             onTap: () {
-              Navigator.pop(context);
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangePasswordPage()));
+              context.go('/change-password');
             },
           ),
           ListTile(

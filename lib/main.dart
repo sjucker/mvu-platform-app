@@ -1,20 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:mvu_platform/router.dart';
+import 'package:provider/provider.dart';
+
 import 'dart:ui';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mvu_platform/constants.dart';
 import 'package:mvu_platform/firebase_options.dart';
-import 'package:mvu_platform/page/absenzen_page.dart';
-import 'package:mvu_platform/page/login_page.dart';
-import 'package:mvu_platform/page/reset_password_page.dart';
 import 'package:mvu_platform/service/dark_theme.dart';
 import 'package:mvu_platform/service/firebase_messaging.dart';
 import 'package:mvu_platform/service/preference_service.dart';
-import 'package:provider/provider.dart';
 
 Future<void> initFirebase() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -59,7 +57,8 @@ class MvuApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
 
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'Musikverein Harmonie Urdorf',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -69,21 +68,6 @@ class MvuApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: mvuRed, brightness: Brightness.dark),
       ),
       themeMode: themeNotifier.getTheme(),
-      routes: <String, WidgetBuilder>{'/reset-password': (BuildContext context) => const ResetPasswordPage()},
-      home: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else {
-            if (snapshot.hasData) {
-              return const AbsenzenPage();
-            } else {
-              return const LoginPage();
-            }
-          }
-        },
-      ),
     );
   }
 }

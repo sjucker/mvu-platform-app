@@ -1,30 +1,53 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:mvu_platform/main.dart';
+import 'package:mvu_platform/page/login_page.dart';
+import 'package:mvu_platform/service/dark_theme.dart';
+import 'package:provider/provider.dart';
+
+typedef Callback = void Function(MethodCall call);
+
+void setupFirebaseCoreMocks() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+  const MethodChannel channel = MethodChannel('plugins.flutter.io/firebase_core');
+  channel.setMockMethodCallHandler((call) async {
+    if (call.method == 'Firebase#initialize') {
+      return [
+        {
+          'name': '[DEFAULT]',
+          'options': {
+            'apiKey': '123',
+            'appId': '1:1234567890:web:abc',
+            'messagingSenderId': '1234567890',
+            'projectId': 'test',
+          },
+          'pluginConstants': {},
+        }
+      ];
+    }
+    return null;
+  });
+}
+
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  setupFirebaseCoreMocks();
+
+  setUpAll(() async {
+    await Firebase.initializeApp();
+  });
+
+  testWidgets('App starts with LoginPage', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MvuApp());
-
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
-
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    await tester.pumpWidget(
+      ChangeNotifierProvider<ThemeNotifier>(
+        create: (_) => ThemeNotifier(false),
+        child: const MvuApp(),
+      ),
+    );
+    await tester.pumpAndSettle();
+    // Verify that the LoginPage is displayed.
+    expect(find.byType(LoginPage), findsOneWidget);
   });
 }

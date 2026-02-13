@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mvu_platform/dto/konzert.dart';
-import 'package:mvu_platform/page/konzert_detail_page.dart';
 import 'package:mvu_platform/service/konzerte_service.dart';
 import 'package:mvu_platform/widget/navigation_drawer.dart';
 
@@ -36,7 +36,7 @@ class _KonzertePageState extends State<KonzertePage> {
                       (entry) => ListTile(
                         title: Text(entry.name),
                         trailing: const Icon(Icons.keyboard_arrow_right_sharp),
-                        onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => KonzertDetailPage(id: entry.id))),
+                        onTap: () => context.go('/konzert-detail/${entry.id}'),
                       ),
                     )
                     .toList(),

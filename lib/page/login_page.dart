@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -65,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
                     padding: const .only(top: 40),
                     child: TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/reset-password');
+                        context.go('/reset-password');
                       },
                       child: const Text('Passwort vergessen?'),
                     ),
