@@ -20,7 +20,9 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "ch.mvurdorf.platform"
-    compileSdk = flutter.compileSdkVersion
+    // permission_handler_android requires Android SDK 37; override Flutter's
+    // default (currently 36). SDKs are backward compatible.
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
