@@ -41,7 +41,7 @@ class RepertoireEntry {
       json['kompositionKomponist'],
       json['kompositionArrangeur'],
       json['kompositionAudioSample'],
-      json['number'],
+      (json['number'] as num?)?.toDouble(),
     );
   }
 

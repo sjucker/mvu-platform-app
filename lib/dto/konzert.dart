@@ -39,7 +39,7 @@ class KonzertEntry {
   factory KonzertEntry.fromJson(Map<String, dynamic> json) {
     return KonzertEntry(
       json['index'],
-      json['marschbuchNumber'],
+      (json['marschbuchNumber'] as num?)?.toDouble(),
       json['placeholder'],
       json['kompositionId'],
       json['kompositionTitel'],
