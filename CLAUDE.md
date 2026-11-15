@@ -20,7 +20,7 @@ dart run flutter_launcher_icons     # regenerate icons from flutter_launcher_ico
 
 CI (`.github/workflows/flutter-ci.yml`) runs format check, analyze and tests on pushes to `main`/`develop` and on PRs. It installs the exact Flutter version from `environment.flutter` in `pubspec.yaml`, so keep that an exact version (no `^`) and bump it when upgrading Flutter. CI replaces `lib/firebase_options.dart` with a stub.
 
-There are no tests yet. A widget test that pumps `MvuApp` needs Firebase mocked and a `ThemeNotifier` provider.
+Tests cover DTO JSON parsing/serialization (`test/dto/`, using realistic JSON strings so int/double typing matches the wire) and widget rendering (`test/widget/`). Services call Firebase Auth and `http` directly and can't be unit-tested without injecting a client, so widget tests must not trigger backend calls (e.g. tapping `AbsenzCard` status buttons). Pumping `MvuApp` would need Firebase mocked and a `ThemeNotifier` provider.
 
 Release (from README):
 - Android: `flutter build appbundle`, then upload `build/app/outputs/bundle/release/app-release.aab` to the Play Console. Signing needs `android/key.properties` (storePassword, keyPassword, keyAlias=key, storeFile=../../key.jks). `key.jks` is in the repo root and must never be committed.

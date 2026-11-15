@@ -42,14 +42,11 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      # test/ is included once it exists.
       - name: Check formatting
-        run: dart format -o none --set-exit-if-changed lib $(test -d test && echo test)
+        run: dart format -o none --set-exit-if-changed lib test
 
       - name: Analyze project source
         run: flutter analyze
 
-      # Skipped until the project has tests; `flutter test` fails without a test/ directory.
       - name: Run tests
-        if: hashFiles('test/**/*_test.dart') != ''
         run: flutter test
