@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:mvu_platform/constants.dart';
 import 'package:mvu_platform/page/absenzen_page.dart';
 import 'package:mvu_platform/page/change_password_page.dart';

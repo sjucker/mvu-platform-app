@@ -1,5 +1,5 @@
 import 'package:add_2_calendar/add_2_calendar.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:mvu_platform/dto/absenz.dart';
 import 'package:mvu_platform/service/events_service.dart';
 

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -5,6 +6,8 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:mvu_platform/service/messaging_service.dart';
 import 'package:permission_handler/permission_handler.dart';
+
+StreamSubscription<String>? _registrationSubscription;
 
 Future<bool> requestPermissionAndSubscribe(bool force) async {
   if (await Permission.notification.isPermanentlyDenied && !force) {
@@ -22,25 +25,30 @@ Future<bool> requestPermissionAndSubscribe(bool force) async {
 
     await FirebaseAnalytics.instance.logEvent(name: "FirebaseMessaging: authorized");
 
-    FirebaseMessaging.instance.onTokenRefresh
-        .listen((fcmToken) {
-          updateFcmToken(fcmToken);
-          FirebaseAnalytics.instance.logEvent(name: "FirebaseMessaging: onTokenRefresh");
-        })
-        .onError((error, stack) {
-          FirebaseCrashlytics.instance.recordError(error, stack);
-        });
-
     return true;
   }
   return false;
 }
 
-Future<void> getAndUpdateFcmToken() async {
-  String? token = await FirebaseMessaging.instance.getToken();
-  if (token != null) {
-    await updateFcmToken(token);
-  }
+/// Registers this app instance for direct-send messaging. The Firebase
+/// Installation ID (FID) arrives asynchronously via [FirebaseMessaging.onRegistered]
+/// and is sent to the backend, so the listener must be attached before calling register().
+Future<void> registerForDirectMessaging() async {
+  _registrationSubscription ??= FirebaseMessaging.instance.onRegistered.listen(
+    (fid) async {
+      try {
+        await updateFid(fid);
+        await FirebaseAnalytics.instance.logEvent(name: "FirebaseMessaging: onRegistered");
+      } catch (error, stack) {
+        FirebaseCrashlytics.instance.recordError(error, stack);
+      }
+    },
+    onError: (Object error, StackTrace stack) {
+      FirebaseCrashlytics.instance.recordError(error, stack);
+    },
+  );
+
+  await FirebaseMessaging.instance.register();
 }
 
 void subscribeTo(String topic) async {
@@ -58,7 +66,7 @@ void subscribeTo(String topic) async {
   }
 
   await FirebaseMessaging.instance.subscribeToTopic(topic);
-  await getAndUpdateFcmToken();
+  await registerForDirectMessaging();
 }
 
 void unsubscribeFrom(String topic) async {

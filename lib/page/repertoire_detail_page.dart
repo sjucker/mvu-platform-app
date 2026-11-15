@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:mvu_platform/dto/repertoire.dart';
 import 'package:mvu_platform/service/repertoire_service.dart';
 import 'package:url_launcher/url_launcher_string.dart';
