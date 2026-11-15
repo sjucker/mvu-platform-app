@@ -53,9 +53,8 @@ class _LoginPageState extends State<LoginPage> {
                         await _firebaseAuth.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
                       } on FirebaseAuthException catch (e) {
                         if (context.mounted) {
-                          ScaffoldMessenger.of(
-                            context,
-                          ).showSnackBar(SnackBar(backgroundColor: Colors.redAccent, content: Text('Login fehlgeschlagen: ${buildErrorMessage(e)}')));
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(backgroundColor: Colors.redAccent, content: Text('Login fehlgeschlagen: ${buildErrorMessage(e)}')));
                         }
                       }
                     },
