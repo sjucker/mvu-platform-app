@@ -10,12 +10,15 @@ Flutter mobile app (Android/iOS, portrait only) for the Musikverein Harmonie Urd
 
 ```sh
 flutter pub get
+dart format lib                     # page_width 160 (analysis_options.yaml); CI fails on unformatted code
 flutter analyze                     # lints: flutter_lints + rules in analysis_options.yaml
 flutter test                        # all tests in test/
 flutter test test/<file>_test.dart  # single file; add --plain-name "<test name>" for one test
 flutter run
 dart run flutter_launcher_icons     # regenerate icons from flutter_launcher_icons.yaml
 ```
+
+CI (`.github/workflows/flutter-ci.yml`) runs format check, analyze and tests on pushes to `main`/`develop` and on PRs. It installs the exact Flutter version from `environment.flutter` in `pubspec.yaml`, so keep that an exact version (no `^`) and bump it when upgrading Flutter. CI replaces `lib/firebase_options.dart` with a stub.
 
 There are no tests yet. A widget test that pumps `MvuApp` needs Firebase mocked and a `ThemeNotifier` provider.
 
