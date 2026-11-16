@@ -24,7 +24,7 @@ Tests cover DTO JSON parsing/serialization (`test/dto/`, using realistic JSON st
 
 Release (from README):
 - Android: `flutter build appbundle`, then upload `build/app/outputs/bundle/release/app-release.aab` to the Play Console. Signing needs `android/key.properties` (storePassword, keyPassword, keyAlias=key, storeFile=../../key.jks). `key.jks` is in the repo root and must never be committed.
-- iOS: `flutter build ipa`, then upload `build/ios/ipa/mvu_platform.ipa` with Apple Transporter. iOS plugins come from Swift Package Manager (CocoaPods only provides the `Flutter` pod), so if the build breaks, run `flutter clean`, `flutter pub get` and build again; if packages are still stale, delete `~/Library/Developer/Xcode/DerivedData`. `permission_handler` enables iOS permissions from the usage-description keys in `ios/Runner/Info.plist`, not from Podfile macros.
+- iOS: `flutter build ipa`, then upload `build/ios/ipa/mvu_platform.ipa` with Apple Transporter. iOS plugins come from Swift Package Manager (CocoaPods is no longer used; there is no Podfile), so if the build breaks, run `flutter clean`, `flutter pub get` and build again; if packages are still stale, delete `~/Library/Developer/Xcode/DerivedData`. `permission_handler` enables iOS permissions from the usage-description keys in `ios/Runner/Info.plist`, not from Podfile macros.
 - Bump `version:` in `pubspec.yaml` (`x.y.z+build`) for each store release.
 
 Firebase config (`lib/firebase_options.dart`, `android/app/google-services.json`, `firebase.json`) is generated with `flutterfire configure --project=mvu-platform` (needs `firebase login` and `dart pub global activate flutterfire_cli`).
