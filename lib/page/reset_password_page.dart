@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({super.key});
@@ -44,15 +44,13 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       try {
                         await _firebaseAuth.sendPasswordResetEmail(email: _emailController.text);
                         if (context.mounted) {
-                          ScaffoldMessenger.of(
-                            context,
-                          ).showSnackBar(SnackBar(backgroundColor: Colors.green, content: Text('Email wurde an ${_emailController.text} verschickt')));
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(backgroundColor: Colors.green, content: Text('Email wurde an ${_emailController.text} verschickt')));
                         }
                       } on FirebaseAuthException catch (e) {
                         if (context.mounted) {
-                          ScaffoldMessenger.of(
-                            context,
-                          ).showSnackBar(SnackBar(backgroundColor: Colors.redAccent, content: Text('Problem: ${buildErrorMessage(e)}')));
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(backgroundColor: Colors.redAccent, content: Text('Problem: ${buildErrorMessage(e)}')));
                         }
                       }
                     },

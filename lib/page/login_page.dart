@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -53,9 +53,8 @@ class _LoginPageState extends State<LoginPage> {
                         await _firebaseAuth.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
                       } on FirebaseAuthException catch (e) {
                         if (context.mounted) {
-                          ScaffoldMessenger.of(
-                            context,
-                          ).showSnackBar(SnackBar(backgroundColor: Colors.redAccent, content: Text('Login fehlgeschlagen: ${buildErrorMessage(e)}')));
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(SnackBar(backgroundColor: Colors.redAccent, content: Text('Login fehlgeschlagen: ${buildErrorMessage(e)}')));
                         }
                       }
                     },

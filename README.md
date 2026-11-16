@@ -16,8 +16,8 @@
 
 * `flutter clean`
 * `flutter pub get`
-* `cd ios`
-* `pod install --repo-update`
+* `flutter build ipa` (iOS plugins are resolved through Swift Package Manager during the build, `pod install` no longer updates them)
+* If packages are still stale, delete `~/Library/Developer/Xcode/DerivedData` and build again
 
 ## Firebase
 

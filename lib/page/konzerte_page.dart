@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:mvu_platform/dto/konzert.dart';
 import 'package:mvu_platform/page/konzert_detail_page.dart';
 import 'package:mvu_platform/service/konzerte_service.dart';

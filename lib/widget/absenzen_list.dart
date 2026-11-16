@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:mvu_platform/dto/absenz.dart';
 import 'package:mvu_platform/service/events_service.dart';
 import 'package:mvu_platform/widget/absenz_card.dart';
