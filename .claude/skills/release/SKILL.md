@@ -1,6 +1,6 @@
 ---
 name: release
-description: Bump the app version and build the Android app bundle and the iOS IPA for a store release. Use when asked to release, build a new version, or prepare a store upload. Takes major, minor or patch to say how the version changes.
+description: Bump the app version, build the Android app bundle and the iOS IPA for a store release, then commit and tag the version bump. Use when asked to release, build a new version, or prepare a store upload. Takes major, minor or patch to say how the version changes.
 argument-hint: "[major|minor|patch]"
 ---
 
@@ -61,11 +61,29 @@ If the iOS build fails on stale packages, run `flutter clean` and `flutter pub g
 
 Read the build output for warnings, such as the app icon and launch image validation in `flutter build ipa`, and pass them on.
 
-## 4. Report
+## 4. Commit and tag
 
-Say for each platform whether the build succeeded, and give the version that was built. Then give the upload steps, which the user does by hand:
+Do this step only if all checks passed and both builds succeeded. If anything failed, leave the version bump in `pubspec.yaml` uncommitted, create no tag, and
+say so in the report.
+
+Commit only `pubspec.yaml`, on the current branch, then tag that commit with the full version prefixed by `v`:
+
+```sh
+git add pubspec.yaml
+git commit -m "Bump version to x.y.z+build"
+git tag vx.y.z+build
+```
+
+Leave other uncommitted or untracked files out of the commit. If the tag already exists, stop and ask instead of moving it. Do not push the commit or the tag
+unless the user asks.
+
+## 5. Report
+
+Say for each platform whether the build succeeded, and give the version that was built. Give the commit hash and the tag name, or say that nothing was
+committed and why. Then give the upload steps, which the user does by hand:
 
 - Android: upload `build/app/outputs/bundle/release/app-release.aab` to the Play Console.
 - iOS: upload `build/ios/ipa/mvu_platform.ipa` with the Apple Transporter app.
 
-Leave the version bump in `pubspec.yaml` uncommitted unless the user asks for a commit. Do not create a git tag unless asked.
+Remind the user that the commit and the tag are local until pushed (`git push --follow-tags` does not push lightweight tags, so use
+`git push && git push origin vx.y.z+build`).
