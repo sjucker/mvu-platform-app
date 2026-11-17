@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:material_ui/material_ui.dart';
+import 'package:mvu_platform/service/passkey_service.dart';
+import 'package:passkeys/types.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -53,12 +55,33 @@ class _LoginPageState extends State<LoginPage> {
                         await _firebaseAuth.signInWithEmailAndPassword(email: _emailController.text, password: _passwordController.text);
                       } on FirebaseAuthException catch (e) {
                         if (context.mounted) {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(SnackBar(backgroundColor: Colors.redAccent, content: Text('Login fehlgeschlagen: ${buildErrorMessage(e)}')));
+                          showLoginError(context, 'Login fehlgeschlagen: ${buildErrorMessage(e)}');
                         }
                       }
                     },
                     child: const Text('Login'),
+                  ),
+                  Padding(
+                    padding: const .only(top: 24),
+                    child: FilledButton.icon(
+                      icon: const Icon(Icons.key),
+                      label: const Text('Mit Passkey anmelden'),
+                      onPressed: () async {
+                        try {
+                          await loginWithPasskey();
+                        } on PasskeyAuthCancelledException {
+                          // dismissed by the user
+                        } on NoCredentialsAvailableException {
+                          if (context.mounted) {
+                            showLoginError(context, 'Kein Passkey vorhanden, bitte mit Passwort anmelden');
+                          }
+                        } catch (_) {
+                          if (context.mounted) {
+                            showLoginError(context, 'Login mit Passkey fehlgeschlagen');
+                          }
+                        }
+                      },
+                    ),
                   ),
                   Padding(
                     padding: const .only(top: 40),
@@ -76,6 +99,10 @@ class _LoginPageState extends State<LoginPage> {
         },
       ),
     );
+  }
+
+  void showLoginError(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(backgroundColor: Colors.redAccent, content: Text(message)));
   }
 
   String buildErrorMessage(FirebaseAuthException e) {
