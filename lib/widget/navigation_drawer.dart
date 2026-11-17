@@ -4,6 +4,7 @@ import 'package:mvu_platform/constants.dart';
 import 'package:mvu_platform/page/absenzen_page.dart';
 import 'package:mvu_platform/page/change_password_page.dart';
 import 'package:mvu_platform/page/konzerte_page.dart';
+import 'package:mvu_platform/page/passkeys_page.dart';
 import 'package:mvu_platform/page/repertoire_page.dart';
 import 'package:mvu_platform/service/dark_theme.dart';
 import 'package:mvu_platform/service/preference_service.dart';
@@ -87,6 +88,14 @@ class _MvuNavigationDrawerState extends State<MvuNavigationDrawer> {
             onTap: () {
               Navigator.pop(context);
               Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangePasswordPage()));
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.key),
+            title: const Text('Passkeys'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const PasskeysPage()));
             },
           ),
           ListTile(
