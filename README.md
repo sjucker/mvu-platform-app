@@ -23,6 +23,8 @@
 
 * `firebase login`
 * `dart pub global activate flutterfire_cli`
+* `gem install xcodeproj` (macOS; `flutterfire` needs this Ruby gem to update the Xcode project, otherwise it fails with
+  `cannot load such file -- xcodeproj`. Reinstall it after a Ruby upgrade.)
 
 * `$HOME/.pub-cache/bin/flutterfire configure --project=mvu-platform` (macOS)
 * `& $env:userprofile\AppData\Local\Pub\Cache\bin\flutterfire.bat configure --project=mvu-platform` (Windows)
